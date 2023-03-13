@@ -1,0 +1,14 @@
+Branoiu Mihai-Catalin 335CA
+
+    Tema 2 presupune implementarea unui procesator de comenzi pentru un retailer precum eMag. In fisierul Tema2.java
+se realizeaza preluarea argumentelor din linia de comanda, declararea unui Executor Service, aflarea pathului pentru
+fisierele de intrare, crearea de file writere si buffered writer pentru scrierea fisierelor de output.
+    Structura threadurilor este ierarhica pe 2 niveluri. Pe primul nivel avem threaduri de tip manager care preiau si
+se ocupa de expedierea unei comenzi. Threadurile manager sunt implementate in clasa ManagerThread. Se citeste fisierul
+de comenzi si se preia o comanda. Managerii creeaza in "subordinea lor" threaduri de tip worker (clasa WorkerThread)
+care se ocupa de verificarea listei de produse si expedierea lor pentru comanda managerului superior.
+    Threadurile de nivel 2 sunt create in limita unui Thread Pool (Executor Service) care limiteaza numarul maxim de
+threaduri de nivel 2 la numarul P. Threadurile worker sunt sincronizate cu un semafor. Semaforul este initializat in
+minus cu numarul de produse din comanda + 1, iar la fiecare expediere de produs, un worker da release semaforului.
+La finalul trimiterii tuturor produselor, semaforul are valoarea 1 si ii permite threadului manager sa continue
+rularea si sa marcheze comanda ca intreg ca fiind expediata.

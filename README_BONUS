@@ -1,0 +1,10 @@
+Branoiu Mihai-Catalin 335CA
+
+    Citirea fisierelor se realizeaza paralel si se imparte in mod aproximativ egal intre threadurile care urmeaza sa
+citeasca. Se creeaza un file descriptor sub forma unui RandomAccessFile si se afla dimensiunea fisierului in octeti.
+Pentru fiecare thread in parte, se calculeaza capetele intervalului de citire pe baza id-ului threadului, astfel fiecare
+thread face seek pana la octetul din inceputul intervallului calculat, in fisierul pe care urmeaza sa il citeasca.
+    Deoarece dorim sa citim linie cu linie, se realizeaza o citire in "gol" cu metoda readLine(), astfel pointerul de
+citire din file descriptor va directiona catre urmatoarea linie citibila (exceptie facand threadul cu numarul 0 care
+poate sa citeasca direct linii complete si relevante pentru proces). Se citeste fisierul linie cu linie pana cand
+pointerul de citire depaseste limita superioara a intervalului de octeti atribuit fiecarui thread.
